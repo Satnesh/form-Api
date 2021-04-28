@@ -14,6 +14,7 @@ function App() {
 
   const[record,setRecord]=useState([]);
   const[tours,setTours]=useState([])
+  const[readmore,setReadmore]=useState(false)
 
 const handleclick=(e)=>{
    const name=e.target.name;
@@ -115,8 +116,12 @@ useEffect(()=>{
             <img src={image}></img>
              <h4>${price}</h4>
             <h4>{name}</h4>
-            <p>{info}</p>
-            
+            <p>{readmore ? info:`${info.substring(0,150)}...`}</p>
+            <button onClick={()=>setReadmore(!readmore)}>
+              
+              {readmore ? 'show less':'readmore' }</button>
+           
+            <Button color="danger">Not interested</Button>
 
             </section>
               </div>
