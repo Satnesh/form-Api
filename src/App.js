@@ -16,6 +16,9 @@ function App() {
   const[tours,setTours]=useState([])
   const[readmore,setReadmore]=useState(false)
 
+  
+  
+
 const handleclick=(e)=>{
    const name=e.target.name;
    const value=e.target.value;
@@ -41,6 +44,13 @@ const submit=(e)=>{
 }
 
 
+
+const removeTour =(id) =>{
+  const newTours=tours.filter((tour)=> tour.id !==id);
+  setTours(newTours)
+}
+
+
 const Tours=async()=>{
   const response=await fetch(url);
   const tour=await response.json()
@@ -51,6 +61,15 @@ const Tours=async()=>{
 useEffect(()=>{
     Tours()
 },[]);
+
+if(tours.length===0){
+  return(
+    <>
+    <h2>No Tours</h2>
+    <button onClick={Tours}>Refresh...</button>
+    </>
+  )
+}
 
   return (
     <div className="App">
@@ -109,7 +128,7 @@ useEffect(()=>{
       <div>
       {
         tours.map((pro)=>{
-          const{image,name,info,price}=pro;
+          const{id,image,name,info,price}=pro;
           return(
             <div >
               <section>
@@ -121,7 +140,7 @@ useEffect(()=>{
               
               {readmore ? 'show less':'readmore' }</button>
            
-            <Button color="danger">Not interested</Button>
+            <Button color="danger" onClick={()=>removeTour(id)}>Not interested</Button>
 
             </section>
               </div>
@@ -129,6 +148,8 @@ useEffect(()=>{
         })
       }
       </div>
+
+      
 
 
     </div>
